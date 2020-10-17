@@ -18,8 +18,11 @@
 * Joi-Celebrate ,
 * Winston.
 
-Ссылка на API <https://>
-Публичный IP-адрес сервера: 
+Ссылка на API:
+* <https://www.api.albnews.students.nomoreparties.xyz/>
+* <https://api.albnews.students.nomoreparties.xyz/>
+
+Публичный IP-адрес сервера: 84.201.134.188
 
 ## В API реализованы рoуты:
 

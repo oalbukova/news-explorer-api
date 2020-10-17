@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { mongoAddress, mongoOptions, limiter } = require('./config');
@@ -26,7 +25,6 @@ app.use(bodyParser.urlencoded({
 }));
 mongoose.connect(mongoAddress, mongoOptions);
 app.use(requestLogger); // подключаем логгер запросов
-app.use(cors({ origin: true }));
 app.use(routes);
 
 app.use(errorLogger); // подключаем логгер ошибок
