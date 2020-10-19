@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { validateErr } = require('../configs/constants');
 
 const articleSchema = new mongoose.Schema(
   {
     keyword: { // ключевое слово, по которому статью нашли
       type: String,
-      required: [true, 'Поле "keyword" должно быть заполнено'],
+      required: true,
     },
     title: { // заголовок статьи
       type: String,
@@ -28,7 +29,7 @@ const articleSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator: (link) => validator.isURL(link),
-        message: 'Поле "link" должно быть валидным url-адресом',
+        message: validateErr,
       },
     },
     image: { // ссылка на иллюстрацию к статье
@@ -36,7 +37,7 @@ const articleSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator: (link) => validator.isURL(link),
-        message: 'Поле "image" должно быть валидным url-адресом',
+        message: validateErr,
       },
     },
     owner: { // _id пользователя, сохранившего статью

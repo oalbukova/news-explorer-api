@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const AuthorizationError = require('../errors/authorization-err');
+const { emailErr, authErrMsg } = require('../configs/constants');
 
 const userSchema = new mongoose.Schema(
   {
@@ -11,7 +12,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator: (email) => validator.isEmail(email),
-        message: 'Поле "email" должно быть валидным email-адресом',
+        message: emailErr,
       },
     },
     password: { // пароль пользователя
@@ -38,11 +39,11 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
     .select('+password')
     .then((user) => {
       if (!user) {
-        throw new AuthorizationError({ message: 'Неправильные почта или пароль' });
+        throw new AuthorizationError({ message: authErrMsg.invalidData });
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
-          throw new AuthorizationError({ message: 'Неправильные почта или пароль' });
+          throw new AuthorizationError({ message: authErrMsg.invalidData });
         }
         return user; // теперь user доступен
       });

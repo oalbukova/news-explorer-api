@@ -1,11 +1,12 @@
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, CelebrateError } = require('celebrate');
 const validator = require('validator');
+const { validateErr } = require('../configs/constants');
 
-const validateUrl = (link, helpers) => {
+const validateUrl = (link) => {
   if (validator.isURL(link)) {
     return link;
   }
-  return helpers.message('Поле "link" должно быть валидным url-адресом');
+  throw new CelebrateError(validateErr);
 };
 
 const validateObjId = celebrate({

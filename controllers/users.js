@@ -1,8 +1,9 @@
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { NODE_ENV, JWT_SECRET } = require('../config');
+const { JWT_SECRET } = require('../configs/config');
 const ConflictError = require('../errors/conflict-err');
+const { conflictErr, successAuth } = require('../configs/constants');
 
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -26,7 +27,7 @@ const createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'MongoError' || err.code === 11000) {
-        throw new ConflictError({ message: 'Пользователь с таким email уже существует' });
+        throw new ConflictError({ message: conflictErr });
       } else next(err);
     })
     .then((user) => res.status(201)
@@ -47,7 +48,8 @@ const login = (req, res, next) => {
       // создадим токен
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        JWT_SECRET,
+        // NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         {
           expiresIn: '7d',
         },
@@ -58,7 +60,7 @@ const login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: 'Успешная авторизация' });
+        .send({ message: successAuth });
     })
     .catch(next);
 };

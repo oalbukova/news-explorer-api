@@ -1,12 +1,11 @@
 const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
+const { notFoundErrMsg, forbiddenErrMsg, successDel } = require('../configs/constants');
 
 const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
-    .orFail(new NotFoundError({
-      message: 'Нет сохраненных статей',
-    }))
+    .orFail(new NotFoundError({ message: notFoundErrMsg.article }))
     .populate('user')
     .then((articles) => res.status(200)
       .send({ data: articles }))
@@ -39,13 +38,15 @@ const findByIdAndRemoveArticle = (req, res, next) => {
     .select('+owner')
     .orFail()
     .catch(() => {
-      throw new NotFoundError({ message: `Статья с идентификатором ${req.params.articleId} не найдена` });
+      throw new NotFoundError({ message: notFoundErrMsg.articleId });
     })
     .then((article) => {
-      if (String(article.owner) !== currentOwner) throw new ForbiddenError({ message: 'Запрос некорректен: недостаточно прав' });
+      if (String(article.owner) !== currentOwner) {
+        throw new ForbiddenError({ message: forbiddenErrMsg });
+      }
       return Article.findByIdAndDelete(article._id);
     })
-    .then((article) => res.send({ message: `Статья ${article.title} успешно удалена` }))
+    .then(() => res.send({ message: successDel }))
     .catch(next);
 };
 

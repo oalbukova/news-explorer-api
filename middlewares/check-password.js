@@ -1,8 +1,10 @@
+const BadRequestError = require('../errors/bad-request-err');
+const { badReqErrMsg } = require('../configs/constants');
+
 const checkPassword = (req, res, next) => {
   const { password } = req.body;
   if (!password || !password.trim()) {
-    res.status(400)
-      .send({ massage: 'Поле "password" должно быть заполнено' });
+    next(new BadRequestError({ massage: badReqErrMsg.password }));
   } else {
     next();
   }
