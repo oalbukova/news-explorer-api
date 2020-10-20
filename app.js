@@ -5,16 +5,12 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { DB_URL, baseOptions } = require('./configs/config');
+const { DB_URL, baseOptions, PORT } = require('./configs/config');
 const limiter = require('./configs/limiter');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
 
 const app = express();
-
-const {
-  PORT = 3000,
-} = process.env;
 
 app.use(cookieParser());
 app.use(helmet());
