@@ -33,5 +33,5 @@ module.exports = {
   successAuth,
   validateErr,
   limiterErr,
-  emailErr
+  emailErr,
 };

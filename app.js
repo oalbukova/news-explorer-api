@@ -1,4 +1,3 @@
-// require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -6,7 +5,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { baseAddress, baseOptions } = require('./configs/config');
+const { DB_URL, baseOptions } = require('./configs/config');
 const limiter = require('./configs/limiter');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
@@ -24,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-mongoose.connect(baseAddress, baseOptions);
+mongoose.connect(DB_URL, baseOptions);
 app.use(requestLogger); // подключаем логгер запросов
 app.use(routes);
 

@@ -1,15 +1,14 @@
 require('dotenv').config();
 
-const { JWT_SECRET = 'JWT_SECRET', NODE_ENV, DB_URL } = process.env;
-//const baseAddress = 'mongodb://localhost:27017/newsexplorerdb';
-const baseAddress = NODE_ENV === 'production' ? DB_URL : 'mongodb://localhost:27017/newsexplorerdb';
-const baseOptions = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-};
+const { NODE_ENV } = process.env;
 
 module.exports = {
-  JWT_SECRET, baseAddress, baseOptions,
+  DB_URL: (NODE_ENV === 'production') ? process.env.DB_URL : 'mongodb://localhost:27017/newsexplorerdb',
+  baseOptions: {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  },
+  JWT_SECRET: (NODE_ENV === 'production') ? process.env.JWT_SECRET : 'JWT_SECRET',
 };
