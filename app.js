@@ -21,7 +21,7 @@ app.use(
       'https://www.albnews.students.nomoreparties.xyz',
       'http://albnews.students.nomoreparties.xyz',
       'https://albnews.students.nomoreparties.xyz',
-      'https://api.albnews.students.nomoreparties.xyz',
+      'http://localhost:3000',
     ],
     credentials: true,
   }),
