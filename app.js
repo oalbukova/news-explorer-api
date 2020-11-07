@@ -14,18 +14,19 @@ const errorHandler = require('./middlewares/error-handler');
 const app = express();
 
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: [
-      'http://www.albnews.students.nomoreparties.xyz',
-      'https://www.albnews.students.nomoreparties.xyz',
-      'http://albnews.students.nomoreparties.xyz',
-      'https://albnews.students.nomoreparties.xyz',
-      'http://localhost:3000',
-    ],
-    credentials: true,
-  }),
-);
+// app.use(
+//  cors({
+//  origin: [
+//    'http://www.albnews.students.nomoreparties.xyz',
+//    'https://www.albnews.students.nomoreparties.xyz',
+//    'http://albnews.students.nomoreparties.xyz',
+//   'https://albnews.students.nomoreparties.xyz',
+//    'http://localhost:3000',
+//  ],
+//  credentials: true,
+// }),
+// );
+app.use(cors({ origin: true }));
 app.use(helmet());
 app.use(limiter);
 app.use(bodyParser.json());
