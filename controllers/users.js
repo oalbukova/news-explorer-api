@@ -59,7 +59,7 @@ const login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: successAuth });
+        .send({ token });
     })
     .catch(next);
 };
