@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const notFoundErrMsg = {
   page: 'Страница по указанному маршруту не найдена',
   article: 'Нет сохраненных статей',
@@ -19,6 +20,7 @@ const forbiddenErrMsg = 'Запрос некорректен: недостато
 const conflictErr = 'Такой пользователь уже есть';
 const serverErr = 'На сервере произошла ошибка';
 const successDel = 'Статья успешно удалена';
+const successAuth = 'Успешная авторизация';
 const limiterErr = 'Слишком много запросов, повторите запрос позже';
 
 module.exports = {
@@ -28,6 +30,7 @@ module.exports = {
   forbiddenErrMsg,
   serverErr,
   conflictErr,
+  successAuth,
   successDel,
   validateErr,
   limiterErr,
