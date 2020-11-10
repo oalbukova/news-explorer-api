@@ -1,4 +1,4 @@
-/* const bcrypt = require('bcryptjs'); // импортируем bcrypt
+const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { JWT_SECRET } = require('../configs/config');
@@ -27,7 +27,6 @@ const getUser = (req, res, next) => {
       next(err);
     });
 };
-
 const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
   bcrypt
@@ -51,10 +50,8 @@ const createUser = (req, res, next) => {
     }))
     .catch(next);
 };
-
 const login = (req, res, next) => {
   const { email, password } = req.body;
-
   return User.findUserByCredentials(email, password)
     .then((user) => {
       // создадим токен
@@ -81,19 +78,19 @@ const login = (req, res, next) => {
     })
     .catch(next);
 };
-
 module.exports = {
   getUser,
   createUser,
   login,
-}; */
+};
 
+/*
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { JWT_SECRET } = require('../configs/config');
 const ConflictError = require('../errors/conflict-err');
-const { conflictErr, successAuth } = require('../configs/constants');
+const { conflictErr } = require('../configs/constants');
 
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -135,13 +132,9 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       // создадим токен
-      const token = jwt.sign(
-        { _id: user._id },
-        JWT_SECRET,
-        {
-          expiresIn: '7d',
-        },
-      );
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
+        expiresIn: '7d',
+      });
       res
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
@@ -158,3 +151,4 @@ module.exports = {
   createUser,
   login,
 };
+*/

@@ -18,7 +18,6 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://localhost:3000',
       'http://www.albnews.students.nomoreparties.xyz',
       'https://www.albnews.students.nomoreparties.xyz',
       'http://albnews.students.nomoreparties.xyz',
