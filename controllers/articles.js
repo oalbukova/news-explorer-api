@@ -14,21 +14,26 @@ const getArticles = (req, res, next) => {
 
 const createArticle = (req, res, next) => {
   const {
-    keyword, title, text, date, source, link, image,
+    keyword,
+    title,
+    description,
+    publishedAt,
+    source,
+    url,
+    urlToImage,
   } = req.body;
   Article.create({
     keyword,
     title,
-    text,
-    date,
+    description,
+    publishedAt,
     source,
-    link,
-    image,
+    url,
+    urlToImage,
     owner: req.user._id,
   })
     // вернём записанные в базу данные
-    .then((article) => res.status(200)
-      .send({ data: article }))
+    .then((article) => res.status(200).send({ data: article }))
     .catch(next);
 };
 
