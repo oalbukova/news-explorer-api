@@ -1,12 +1,16 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
+const BadRequestError = require('../errors/bad-request-err');
 const {
   notFoundErrMsg,
   forbiddenErrMsg,
   successDel,
 } = require('../configs/constants');
-
+/*
 const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
     .orFail(new NotFoundError({ message: notFoundErrMsg.article }))
@@ -65,6 +69,73 @@ const findByIdAndRemoveArticle = (req, res, next) => {
       return Article.findByIdAndDelete(article._id);
     })
     .then(() => res.send({ message: successDel }))
+    .catch(next);
+}; */
+
+const createArticle = (req, res, next) => {
+  const {
+    keyword,
+    title,
+    description,
+    publishedAt,
+    source,
+    url,
+    urlToImage,
+  } = req.body;
+  Article.create({
+    keyword,
+    title,
+    description,
+    publishedAt,
+    source,
+    url,
+    urlToImage,
+    owner: req.user._id,
+  })
+    .then((result) => res.status(201).send({ data: result }))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError(err.message));
+      }
+      next(err);
+    });
+};
+
+const getArticles = (req, res, next) => {
+  Article.find({ owner: req.user._id })
+    .then((article) => {
+      if (article.length === 0) {
+        throw new NotFoundError(notFoundErrMsg.articleId);
+      }
+      res.send({ data: article });
+    })
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        next(new BadRequestError('Невалидный id пользователя'));
+      }
+      next(err);
+    });
+};
+
+const findByIdAndRemoveArticle = (req, res, next) => {
+  Article.findById(req.params.articleId)
+    .select('+owner')
+    .then((article) => {
+      if (!article) {
+        throw new NotFoundError(notFoundErrMsg.articleId);
+      } else if (article.owner.toString() !== req.user._id) {
+        throw new ForbiddenError(forbiddenErrMsg);
+      } else {
+        Article.findByIdAndRemove(req.params.articleId)
+          .then((result) => {
+            if (!result) {
+              throw new NotFoundError(notFoundErrMsg.articleId);
+            }
+            res.send({ data: result });
+          })
+          .catch(next);
+      }
+    })
     .catch(next);
 };
 
