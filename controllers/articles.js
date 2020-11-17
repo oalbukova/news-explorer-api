@@ -11,7 +11,7 @@ const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
     .orFail(new NotFoundError({ message: notFoundErrMsg.article }))
     .populate('user')
-    .then((articles) => res.status(200).send({ data: articles }))
+    .then((articles) => res.send({ data: articles }))
     .catch(next);
 };
 
