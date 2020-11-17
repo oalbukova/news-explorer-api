@@ -6,7 +6,7 @@ const notFoundErrMsg = {
 };
 
 const badReqErrMsg = {
-  password: 'Поле "password" должно быть заполнено',
+  password: 'Указаны некорректные данные:',
 };
 
 const authErrMsg = {

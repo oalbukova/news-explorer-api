@@ -2,7 +2,8 @@ const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 const ServerError = require('../errors/server-err');
-const { serverErr } = require('../configs/constants');
+const BadRequestError = require('../errors/bad-request-err');
+const { serverErr, badReqErrMsg } = require('../configs/constants');
 
 const {
   notFoundErrMsg,
@@ -10,7 +11,8 @@ const {
 } = require('../configs/constants');
 
 const getArticles = (req, res, next) => {
-  Article.find({ owner: req.user._id })
+  const owner = req.user._id;
+  Article.find({ owner })
     .populate('user')
     .then((articles) => res.send({ data: articles }))
     .catch((err) => {
@@ -31,6 +33,7 @@ const createArticle = (req, res, next) => {
     url,
     urlToImage,
   } = req.body;
+  const owner = req.user._id;
   Article.create({
     keyword,
     title,
@@ -39,8 +42,11 @@ const createArticle = (req, res, next) => {
     source,
     url,
     urlToImage,
-    owner: req.user._id,
+    owner,
   })
+    .catch((err) => {
+      throw new BadRequestError({ message: `${badReqErrMsg} ${err.message}` });
+    })
     // вернём записанные в базу данные
     .then((article) => res.status(201).send({
       data: {
