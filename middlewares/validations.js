@@ -51,7 +51,7 @@ const validateUserBody = celebrate({
         }),
     }),
 });
-
+/*
 const validateArticle = celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required().messages({
@@ -82,6 +82,19 @@ const validateArticle = celebrate({
       'any.required': 'Поле "image" должно быть заполнено',
       'string.empty': 'Поле "image" не должно быть пустым',
     }),
+  }),
+});
+*/
+
+const validateArticle = celebrate({
+  body: Joi.object().keys({
+    keyword: Joi.string().required(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    publishedAt: Joi.string().required(),
+    source: Joi.string().required(),
+    url: Joi.string().custom(validateUrl).required(),
+    urlToImage: Joi.string().custom(validateUrl).required(),
   }),
 });
 
