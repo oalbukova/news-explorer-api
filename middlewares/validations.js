@@ -51,7 +51,7 @@ const validateUserBody = celebrate({
         }),
     }),
 });
-/*
+
 const validateArticle = celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required().messages({
@@ -84,8 +84,8 @@ const validateArticle = celebrate({
     }),
   }),
 });
-*/
 
+/*
 const validateArticle = celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required(),
@@ -97,7 +97,7 @@ const validateArticle = celebrate({
     urlToImage: Joi.string().custom(validateUrl).required(),
   }),
 });
-
+*/
 const validateAuthentication = celebrate({
   body: Joi.object()
     .keys({
