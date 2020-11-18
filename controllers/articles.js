@@ -3,7 +3,7 @@ const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 const ServerError = require('../errors/server-err');
 const BadRequestError = require('../errors/bad-request-err');
-const { serverErr, badReqErrMsg } = require('../configs/constants');
+const { serverErr, badReqErrMsg, successDel } = require('../configs/constants');
 
 const {
   notFoundErrMsg,
@@ -61,7 +61,7 @@ const createArticle = (req, res, next) => {
     }))
     .catch(next);
 };
-
+/*
 const findByIdAndRemoveArticle = (req, res, next) => {
   const owner = req.user._id;
   const id = req.params._id;
@@ -89,6 +89,24 @@ const findByIdAndRemoveArticle = (req, res, next) => {
         })
         .catch(next);
     })
+    .catch(next);
+};
+*/
+const findByIdAndRemoveArticle = (req, res, next) => {
+  const currentOwner = req.user._id;
+  Article.findOne({ _id: req.params.articleId })
+    .select('+owner')
+    .orFail()
+    .catch(() => {
+      throw new NotFoundError({ message: notFoundErrMsg.articleId });
+    })
+    .then((article) => {
+      if (String(article.owner) !== currentOwner) {
+        throw new ForbiddenError({ message: forbiddenErrMsg });
+      }
+      return Article.findByIdAndDelete(article._id);
+    })
+    .then(() => res.send({ message: successDel }))
     .catch(next);
 };
 
