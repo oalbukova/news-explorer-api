@@ -61,37 +61,7 @@ const createArticle = (req, res, next) => {
     }))
     .catch(next);
 };
-/*
-const findByIdAndRemoveArticle = (req, res, next) => {
-  const owner = req.user._id;
-  const id = req.params._id;
-  Article.findById(id, {
-    keyword: 1,
-    title: 1,
-    description: 1,
-    publishedAt: 1,
-    source: 1,
-    url: 1,
-    urlToImage: 1,
-    owner: 1,
-  })
-    .orFail()
-    .catch(() => {
-      throw new NotFoundError({ message: notFoundErrMsg.articleId });
-    })
-    .then((article) => {
-      if (String(article.owner) !== owner) {
-        throw new ForbiddenError({ message: forbiddenErrMsg });
-      }
-      Article.findByIdAndDelete(id)
-        .then((deletedArticle) => {
-          res.send({ data: deletedArticle });
-        })
-        .catch(next);
-    })
-    .catch(next);
-};
-*/
+
 const findByIdAndRemoveArticle = (req, res, next) => {
   const currentOwner = req.user._id;
   Article.findOne({ _id: req.params.articleId })
