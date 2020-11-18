@@ -11,8 +11,7 @@ const validateUrl = (link) => {
 
 const validateObjId = celebrate({
   params: Joi.object().keys({
-    articleId: Joi.string().required().alphanum()
-      .hex(),
+    articleId: Joi.string().required().alphanum(),
   }),
 });
 
