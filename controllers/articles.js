@@ -5,10 +5,7 @@ const ServerError = require('../errors/server-err');
 const BadRequestError = require('../errors/bad-request-err');
 const { serverErr, badReqErrMsg, successDel } = require('../configs/constants');
 
-const {
-  notFoundErrMsg,
-  forbiddenErrMsg,
-} = require('../configs/constants');
+const { notFoundErrMsg, forbiddenErrMsg } = require('../configs/constants');
 
 const getArticles = (req, res, next) => {
   const owner = req.user._id;
@@ -48,35 +45,24 @@ const createArticle = (req, res, next) => {
       throw new BadRequestError({ message: `${badReqErrMsg} ${err.message}` });
     })
     // вернём записанные в базу данные
-    .then((article) => res.status(201).send({
-      data: {
-        keyword: article.keyword,
-        title: article.title,
-        description: article.description,
-        publishedAt: article.publishedAt,
-        source: article.source,
-        url: article.url,
-        urlToImage: article.urlToImage,
-      },
-    }))
+    .then((article) => res.status(201).send({ data: article }))
     .catch(next);
 };
 
 const findByIdAndRemoveArticle = (req, res, next) => {
-  const currentOwner = req.user._id;
-  Article.findOne({ _id: req.params.articleId })
-    .select('+owner')
+  Article.findById(req.params.articleId)
     .orFail()
     .catch(() => {
       throw new NotFoundError({ message: notFoundErrMsg.articleId });
     })
     .then((article) => {
-      if (String(article.owner) !== currentOwner) {
+      if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: forbiddenErrMsg });
       }
-      return Article.findByIdAndDelete(article._id);
+      Article.deleteOne(article)
+        .then(() => res.send({ message: successDel }))
+        .catch(next);
     })
-    .then(() => res.send({ message: successDel }))
     .catch(next);
 };
 
