@@ -60,20 +60,19 @@ const createArticle = (req, res, next) => {
 };
 
 const findByIdAndRemoveArticle = (req, res, next) => {
-  const currentOwner = req.user._id;
-  Article.findOne({ _id: req.params.articleId })
-    .select('+owner')
+  Article.findById(req.params.articleId)
     .orFail()
     .catch(() => {
       throw new NotFoundError({ message: notFoundErrMsg.articleId });
     })
     .then((article) => {
-      if (String(article.owner) !== currentOwner) {
+      if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: forbiddenErrMsg });
       }
-      return Article.findByIdAndDelete(article._id);
+      Article.deleteOne(article)
+        .then(() => res.send({ message: successDel }))
+        .catch(next);
     })
-    .then(() => res.send({ message: successDel }))
     .catch(next);
 };
 
