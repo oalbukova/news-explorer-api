@@ -14,12 +14,12 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    text: {
       // текст статьи
       type: String,
       required: true,
     },
-    publishedAt: {
+    date: {
       // дата статьи
       type: String,
       required: true,
@@ -29,21 +29,21 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    url: {
+    link: {
       // ссылка на статью
       type: String,
       required: true,
       validate: {
-        validator: (url) => validator.isURL(url),
+        validator: (link) => validator.isURL(link),
         message: validateErr,
       },
     },
-    urlToImage: {
+    image: {
       // ссылка на иллюстрацию к статье
       type: String,
       required: true,
       validate: {
-        validator: (urlToImage) => validator.isURL(urlToImage),
+        validator: (link) => validator.isURL(link),
         message: validateErr,
       },
     },

@@ -11,7 +11,8 @@ const validateUrl = (link) => {
 
 const validateObjId = celebrate({
   params: Joi.object().keys({
-    articleId: Joi.string().required().alphanum(),
+    articleId: Joi.string().required().alphanum().length(24)
+      .hex(),
   }),
 });
 
@@ -56,11 +57,11 @@ const validateArticle = celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required(),
     title: Joi.string().required(),
-    description: Joi.string().required(),
-    publishedAt: Joi.string().required(),
+    text: Joi.string().required(),
+    date: Joi.string().required(),
     source: Joi.string().required(),
-    url: Joi.string().custom(validateUrl).required(),
-    urlToImage: Joi.string().custom(validateUrl).required(),
+    link: Joi.string().custom(validateUrl).required(),
+    image: Joi.string().custom(validateUrl).required(),
   }),
 });
 

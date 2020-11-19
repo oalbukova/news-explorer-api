@@ -22,29 +22,22 @@ const getArticles = (req, res, next) => {
 
 const createArticle = (req, res, next) => {
   const {
-    keyword,
-    title,
-    description,
-    publishedAt,
-    source,
-    url,
-    urlToImage,
+    keyword, title, text, date, source, link, image,
   } = req.body;
-  const owner = req.user._id;
   Article.create({
     keyword,
     title,
-    description,
-    publishedAt,
+    text,
+    date,
     source,
-    url,
-    urlToImage,
-    owner,
+    link,
+    image,
+    owner: req.user._id,
   })
     .catch((err) => {
       throw new BadRequestError({ message: `${badReqErrMsg} ${err.message}` });
     })
-    // вернём записанные в базу данные
+  // вернём записанные в базу данные
     .then((article) => res.status(201).send({ data: article }))
     .catch(next);
 };
