@@ -45,17 +45,7 @@ const createArticle = (req, res, next) => {
       throw new BadRequestError({ message: `${badReqErrMsg} ${err.message}` });
     })
     // вернём записанные в базу данные
-    .then((article) => res.status(201).send({
-      data: {
-        keyword: article.keyword,
-        title: article.title,
-        description: article.description,
-        publishedAt: article.publishedAt,
-        source: article.source,
-        url: article.url,
-        urlToImage: article.urlToImage,
-      },
-    }))
+    .then((article) => res.status(201).send({ data: article }))
     .catch(next);
 };
 

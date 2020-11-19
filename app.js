@@ -22,7 +22,7 @@ app.use(
       'https://www.albnews.students.nomoreparties.xyz',
       'http://albnews.students.nomoreparties.xyz',
       'https://albnews.students.nomoreparties.xyz',
-      'https://oalbukova.github.io/news-explorer-frontend/',
+      'https://oalbukova.github.io',
     ],
     credentials: true,
   }),
