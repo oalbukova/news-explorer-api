@@ -19,7 +19,6 @@ const forbiddenErrMsg = 'Запрос некорректен: недостато
 const conflictErr = 'Такой пользователь уже есть';
 const serverErr = 'На сервере произошла ошибка';
 const successDel = 'Статья успешно удалена';
-const successAuth = 'Успешная авторизация';
 const limiterErr = 'Слишком много запросов, повторите запрос позже';
 
 module.exports = {
@@ -30,7 +29,6 @@ module.exports = {
   serverErr,
   conflictErr,
   successDel,
-  successAuth,
   validateErr,
   limiterErr,
   emailErr,

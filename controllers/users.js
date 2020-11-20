@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { JWT_SECRET } = require('../configs/config');
 const ConflictError = require('../errors/conflict-err');
-const { conflictErr, successAuth } = require('../configs/constants');
+const { conflictErr } = require('../configs/constants');
 
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -54,12 +54,12 @@ const login = (req, res, next) => {
         },
       );
       res
-        .cookie('jwt', token, {
+        .cookie("jwt", token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
           sameSite: true,
         })
-        .send({ message: successAuth });
+        .send({ token });
     })
     .catch(next);
 };
