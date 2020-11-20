@@ -37,7 +37,6 @@ const createUser = (req, res, next) => {
     .then((user) =>
       res.status(201).send({
         data: {
-          _id: result._id,
           email: user.email,
           name: user.name,
         },
@@ -55,19 +54,12 @@ const login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });
-      res
-        .cookie("jwt", token, {
+      /*   .cookie("jwt", token, {
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
           sameSite: true,
-        })
-        .send({
-          data: {
-            _id: user._id,
-            email: user.email,
-            name: user.name,
-          },
-        });
+        })*/
+      res.send({ token });
     })
     .catch(next);
 };
