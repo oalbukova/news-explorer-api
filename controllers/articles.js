@@ -68,9 +68,8 @@ const {
 
 const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
-    .orFail(new NotFoundError({ message: notFoundErrMsg.article }))
     .populate('user')
-    .then((articles) => res.status(201).send({ data: articles }))
+    .then((articles) => res.send({ data: articles }))
     .catch(next);
 };
 
@@ -95,7 +94,17 @@ const createArticle = (req, res, next) => {
     owner: req.user._id,
   })
     // вернём записанные в базу данные
-    .then((article) => res.status(201).send({ data: article }))
+    .then((article) => res.status(201).send({
+      data: {
+        keyword: article.keyword,
+        title: article.title,
+        description: article.description,
+        publishedAt: article.publishedAt,
+        source: article.source,
+        url: article.url,
+        urlToImage: article.urlToImage,
+      },
+    }))
     .catch(next);
 };
 
