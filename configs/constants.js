@@ -2,11 +2,10 @@ const notFoundErrMsg = {
   page: 'Страница по указанному маршруту не найдена',
   article: 'Нет сохраненных статей',
   articleId: 'Статья с таким идентификатором не найдена',
-  user: 'Пользователь не найден',
 };
 
 const badReqErrMsg = {
-  password: 'Указаны некорректные данные:',
+  password: 'Поле "password" должно быть заполнено',
 };
 
 const authErrMsg = {
@@ -15,11 +14,12 @@ const authErrMsg = {
 };
 
 const validateErr = 'Поле должно быть валидным url-адресом';
-const emailErr = 'Неправильный формат email';
+const emailErr = 'Поле должно быть валидным email-адресом';
 const forbiddenErrMsg = 'Запрос некорректен: недостаточно прав';
 const conflictErr = 'Такой пользователь уже есть';
-const serverErr = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
+const serverErr = 'На сервере произошла ошибка';
 const successDel = 'Статья успешно удалена';
+const successAuth = 'Успешная авторизация';
 const limiterErr = 'Слишком много запросов, повторите запрос позже';
 
 module.exports = {
@@ -30,6 +30,7 @@ module.exports = {
   serverErr,
   conflictErr,
   successDel,
+  successAuth,
   validateErr,
   limiterErr,
   emailErr,

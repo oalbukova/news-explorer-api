@@ -13,29 +13,31 @@ const errorHandler = require('./middlewares/error-handler');
 
 const app = express();
 
-
+app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
-      'http://www.albnews.students.nomoreparties.xyz',
-      'https://www.albnews.students.nomoreparties.xyz',
-      'http://albnews.students.nomoreparties.xyz',
-      'https://albnews.students.nomoreparties.xyz',
-      'https://oalbukova.github.io',
+      "84.201.134.188",
+      "http://localhost:3000",
+      "https://localhost:3000",
+      " https://oalbukova.github.io/news-explorer-frontend/",
+      "https://www.albnews.students.nomoreparties.xyz",
+      "https://albnews.students.nomoreparties.xyz",
+      "http://www.albnews.students.nomoreparties.xyz",
+      "http://albnews.students.nomoreparties.xyz",
     ],
     credentials: true,
-  }),
+  })
 );
-app.use(cookieParser());
 app.use(helmet());
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
-  }));
-mongoose.connect(baseAddress, baseOptions);
+  }),
+);
+mongoose.connect(DB_URL, baseOptions);
 app.use(requestLogger); // подключаем логгер запросов
 app.use(routes);
 

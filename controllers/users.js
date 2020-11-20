@@ -30,12 +30,13 @@ const createUser = (req, res, next) => {
         throw new ConflictError({ message: conflictErr });
       } else next(err);
     })
-    .then((user) => res.status(201).send({
-      data: {
-        email: user.email,
-        name: user.name,
-      },
-    }))
+    .then((user) => res.status(201)
+      .send({
+        data: {
+          email: user.email,
+          name: user.name,
+        },
+      }))
     .catch(next);
 };
 
@@ -48,7 +49,6 @@ const login = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id },
         JWT_SECRET,
-        // NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         {
           expiresIn: '7d',
         },
