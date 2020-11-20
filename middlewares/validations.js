@@ -8,7 +8,7 @@ const validateUrl = (link) => {
   }
   throw new CelebrateError(validateErr);
 };
-/*
+
 const validateObjId = celebrate({
   params: Joi.object()
     .keys({
@@ -19,7 +19,7 @@ const validateObjId = celebrate({
         .hex(),
     }),
 });
-*/
+
 const validateUserBody = celebrate({
   body: Joi.object()
     .keys({
