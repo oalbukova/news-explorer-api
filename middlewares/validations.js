@@ -104,16 +104,18 @@ const validateArticle = celebrate({
 
 const validateAuthentication = celebrate({
   body: Joi.object().keys({
-    keyword: Joi.string().required(),
-    title: Joi.string().required(),
-    description: Joi.string().required(),
-    publishedAt: Joi.string().required(),
-    source: Joi.string().required(),
-    url: Joi.string().custom(validateUrl).required(),
-    urlToImage: Joi.string().custom(validateUrl).required(),
+    email: Joi.string().required().email().messages({
+      'string.email': 'Введите валидный email-адрес',
+      'any.required': 'Поле "email" должно быть заполнено',
+      'string.empty': 'Поле "email" не должно быть пустым',
+    }),
+    password: Joi.string().required().min(8).messages({
+      'string.min': 'Минимальная длина поля "password" - 8',
+      'any.required': 'Поле "password" должно быть заполнено',
+      'string.empty': 'Поле "password" не должно быть пустым',
+    }),
   }),
 });
-
 
 module.exports = {
   validateUserBody,
