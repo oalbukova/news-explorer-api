@@ -12,11 +12,11 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    text: { // текст статьи
+    description: { // текст статьи
       type: String,
       required: true,
     },
-    date: { // дата статьи
+    publishedAt: { // дата статьи
       type: String,
       required: true,
     },
@@ -24,7 +24,7 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    link: { // ссылка на статью
+    url: { // ссылка на статью
       type: String,
       required: true,
       validate: {
@@ -32,7 +32,7 @@ const articleSchema = new mongoose.Schema(
         message: validateErr,
       },
     },
-    image: { // ссылка на иллюстрацию к статье
+    urlToImage: { // ссылка на иллюстрацию к статье
       type: String,
       required: true,
       validate: {
