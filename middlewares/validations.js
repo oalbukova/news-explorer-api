@@ -53,53 +53,15 @@ const validateUserBody = celebrate({
 });
 
 const validateArticle = celebrate({
-  body: Joi.object()
-    .keys({
-      keyword: Joi.string()
-        .required()
-        .messages({
-          'any.required': 'Поле "keyword" должно быть заполнено',
-          'string.empty': 'Поле "keyword" не должно быть пустым',
-        }),
-      title: Joi.string()
-        .required()
-        .messages({
-          'any.required': 'Поле "title" должно быть заполнено',
-          'string.empty': 'Поле "title" не должно быть пустым',
-        }),
-      text: Joi.string()
-        .required()
-        .messages({
-          'any.required': 'Поле "text" должно быть заполнено',
-          'string.empty': 'Поле "text" не должно быть пустым',
-        }),
-      date: Joi.string()
-        .required()
-        .messages({
-          'any.required': 'Поле "date" должно быть заполнено',
-          'string.empty': 'Поле "date" не должно быть пустым',
-        }),
-      source: Joi.string()
-        .required()
-        .messages({
-          'any.required': 'Поле "source" должно быть заполнено',
-          'string.empty': 'Поле "source" не должно быть пустым',
-        }),
-      link: Joi.string()
-        .custom(validateUrl)
-        .required()
-        .messages({
-          'any.required': 'Поле "link" должно быть заполнено',
-          'string.empty': 'Поле "link" не должно быть пустым',
-        }),
-      image: Joi.string()
-        .custom(validateUrl)
-        .required()
-        .messages({
-          'any.required': 'Поле "image" должно быть заполнено',
-          'string.empty': 'Поле "image" не должно быть пустым',
-        }),
-    }),
+  body: Joi.object().keys({
+    keyword: Joi.string().required(),
+    title: Joi.string().required(),
+    text: Joi.string().required(),
+    date: Joi.string().required(),
+    source: Joi.string().required(),
+    link: Joi.string().custom(validateUrl).required(),
+    image: Joi.string().custom(validateUrl).required(),
+  }),
 });
 
 const validateAuthentication = celebrate({
