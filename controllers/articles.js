@@ -96,7 +96,7 @@ const createArticle = (req, res, next) => {
     // вернём записанные в базу данные
     .then((article) => res.status(201).send({
       data: {
-        id: article.id,
+        _id: article.id,
         keyword: article.keyword,
         title: article.title,
         description: article.description,
