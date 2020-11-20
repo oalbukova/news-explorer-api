@@ -111,7 +111,9 @@ const createArticle = (req, res, next) => {
 
 const findByIdAndRemoveArticle = (req, res, next) => {
   const owner = req.user._id;
-  const id = req.params._id;
+  const id = req.params.articleId;
+  console.log(id);
+  console.log(req.params);
   Article.findById(id, {
     keyword: 1,
     title: 1,
