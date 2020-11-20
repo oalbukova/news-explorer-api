@@ -44,9 +44,10 @@ const findByIdAndRemoveArticle = (req, res, next) => {
       if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: forbiddenErrMsg });
       }
-      return Article.deleteOne(article);
+      Article.deleteOne(article)
+        .then(() => res.send({ message: successDel }))
+        .catch(next);
     })
-    .then(() => res.send({ message: successDel }))
     .catch(next);
 };
 
