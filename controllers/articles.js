@@ -1,14 +1,17 @@
 const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
-const { notFoundErrMsg, forbiddenErrMsg, successDel } = require('../configs/constants');
+const {
+  notFoundErrMsg,
+  forbiddenErrMsg,
+  successDel,
+} = require('../configs/constants');
 
 const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
     .orFail(new NotFoundError({ message: notFoundErrMsg.article }))
     .populate('user')
-    .then((articles) => res.status(201)
-      .send({ data: articles }))
+    .then((articles) => res.status(201).send({ data: articles }))
     .catch(next);
 };
 
@@ -27,24 +30,21 @@ const createArticle = (req, res, next) => {
     owner: req.user._id,
   })
     // вернём записанные в базу данные
-    .then((article) => res.status(200)
-      .send({ data: article }))
+    .then((article) => res.status(201).send({ data: article }))
     .catch(next);
 };
 
 const findByIdAndRemoveArticle = (req, res, next) => {
-  const currentOwner = req.user._id;
-  Article.findOne({ _id: req.params.articleId })
-    .select('+owner')
+  Article.findById(req.params.articleId)
     .orFail()
     .catch(() => {
       throw new NotFoundError({ message: notFoundErrMsg.articleId });
     })
     .then((article) => {
-      if (String(article.owner) !== currentOwner) {
+      if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: forbiddenErrMsg });
       }
-      return Article.findByIdAndDelete(article._id);
+      return Article.deleteOne(article);
     })
     .then(() => res.send({ message: successDel }))
     .catch(next);
