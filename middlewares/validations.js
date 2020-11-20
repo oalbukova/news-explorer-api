@@ -15,7 +15,6 @@ const validateObjId = celebrate({
       articleId: Joi.string()
         .required()
         .alphanum()
-        .length(24)
         .hex(),
     }),
 });
