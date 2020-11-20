@@ -8,17 +8,18 @@ const validateUrl = (link) => {
   }
   throw new CelebrateError(validateErr);
 };
-
+/*
 const validateObjId = celebrate({
   params: Joi.object()
     .keys({
       articleId: Joi.string()
         .required()
         .alphanum()
+        .length(24)
         .hex(),
     }),
 });
-
+*/
 const validateUserBody = celebrate({
   body: Joi.object()
     .keys({
