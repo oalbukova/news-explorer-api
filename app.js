@@ -20,7 +20,7 @@ app.use(
       '84.201.134.188',
       'http://localhost:3000',
       'https://localhost:3000',
-      'https://oalbukova.github.io/',
+      'https://oalbukova.github.io/news-explorer-frontend/',
       'https://www.albnews.students.nomoreparties.xyz',
       'https://albnews.students.nomoreparties.xyz',
       'http://www.albnews.students.nomoreparties.xyz',
