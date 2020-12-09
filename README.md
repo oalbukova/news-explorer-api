@@ -19,8 +19,8 @@
 * Winston.
 
 Ссылка на API:
-* <https://www.api.albnews.students.nomoreparties.xyz/>
-* <https://api.albnews.students.nomoreparties.xyz/>
+* <https://www.api.ypnews.students.nomoreparties.xyz/>
+* <https://api.ypnews.students.nomoreparties.xyz/>
 
 Публичный IP-адрес сервера: 130.193.37.144
 
