@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      '84.201.134.188',
+      '178.154.225.207',
       'http://localhost:3000',
       'https://localhost:3000',
       'https://oalbukova.github.io/news-explorer-frontend/',
