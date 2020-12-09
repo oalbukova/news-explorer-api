@@ -17,17 +17,17 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      '178.154.225.207',
-      'http://localhost:3000',
-      'https://localhost:3000',
-      'https://oalbukova.github.io/news-explorer-frontend/',
-      'https://www.albnews.students.nomoreparties.xyz',
-      'https://albnews.students.nomoreparties.xyz',
-      'http://www.albnews.students.nomoreparties.xyz',
-      'http://albnews.students.nomoreparties.xyz',
+      "130.193.37.144",
+      "http://localhost:3000",
+      "https://localhost:3000",
+      "https://oalbukova.github.io/news-explorer-frontend/",
+      "https://www.albnews.students.nomoreparties.xyz",
+      "https://albnews.students.nomoreparties.xyz",
+      "http://www.albnews.students.nomoreparties.xyz",
+      "http://albnews.students.nomoreparties.xyz",
     ],
     credentials: true,
-  }),
+  })
 );
 app.use(helmet());
 app.use(limiter);

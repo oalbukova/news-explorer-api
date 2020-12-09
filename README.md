@@ -22,7 +22,7 @@
 * <https://www.api.albnews.students.nomoreparties.xyz/>
 * <https://api.albnews.students.nomoreparties.xyz/>
 
-Публичный IP-адрес сервера: 84.201.134.188
+Публичный IP-адрес сервера: 130.193.37.144
 
 ## В API реализованы рoуты:
 
