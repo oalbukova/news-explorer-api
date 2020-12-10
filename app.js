@@ -17,17 +17,17 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "130.193.37.144",
-      "http://localhost:3000",
-      "https://localhost:3000",
-      "https://oalbukova.github.io/news-explorer-frontend/",
-      "https://www.ypnews.students.nomoreparties.xyz",
-      "https://ypnews.students.nomoreparties.xyz",
-      "http://www.ypnews.students.nomoreparties.xyz",
-      "http://ypnews.students.nomoreparties.xyz",
+      '130.193.37.144',
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'https://oalbukova.github.io/news-explorer-frontend/',
+      'https://www.ypnews.students.nomoreparties.xyz',
+      'https://ypnews.students.nomoreparties.xyz',
+      'http://www.ypnews.students.nomoreparties.xyz',
+      'http://ypnews.students.nomoreparties.xyz',
     ],
     credentials: true,
-  })
+  }),
 );
 app.use(helmet());
 app.use(limiter);
