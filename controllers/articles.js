@@ -4,7 +4,7 @@ const ForbiddenError = require('../errors/forbidden-err');
 const {
   notFoundErrMsg,
   forbiddenErrMsg,
-  // successDel,
+  successDel,
 } = require('../configs/constants');
 
 const getArticles = (req, res, next) => {
@@ -49,37 +49,7 @@ const createArticle = (req, res, next) => {
     }))
     .catch(next);
 };
-/*
-const findByIdAndRemoveArticle = (req, res, next) => {
-  const owner = req.user._id;
-  const id = req.params.articleId;
-  Article.findById(id, {
-    keyword: 1,
-    title: 1,
-    description: 1,
-    publishedAt: 1,
-    source: 1,
-    url: 1,
-    urlToImage: 1,
-    owner: 1,
-  })
-    .orFail()
-    .catch(() => {
-      throw new NotFoundError({ message: notFoundErrMsg.articleId });
-    })
-    .then((article) => {
-      if (article.owner.toString() !== owner) {
-        throw new ForbiddenError({ message: forbiddenErrMsg });
-      }
-      Article.findByIdAndDelete(id)
-        .then((deletedArticle) => {
-          res.send({ data: deletedArticle });
-        })
-        .catch(next);
-    })
-    .catch(next);
-};
-*/
+
 const findByIdAndRemoveArticle = (req, res, next) => {
   const currentOwner = req.user._id;
   Article.findOne({ _id: req.params.articleId })
@@ -96,7 +66,7 @@ const findByIdAndRemoveArticle = (req, res, next) => {
     })
     .then(() => res.send({ message: successDel }))
     .catch(next);
-}; 
+};
 
 module.exports = {
   getArticles,
