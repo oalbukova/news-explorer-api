@@ -19,8 +19,7 @@
 * Winston.
 
 Ссылка на API:
-* <https://www.api.ypnews.students.nomoreparties.xyz/>
-* <https://api.ypnews.students.nomoreparties.xyz/>
+* <https://api.news.oalbukova.nomoredomains.work/>
 
 Публичный IP-адрес сервера: 130.193.37.144
 
